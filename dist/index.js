@@ -63,7 +63,7 @@ class AutoUpdater extends EventEmitter {
       try {
         return yield readJson(_this.manifest.manifestUrl);
       } catch (e) {
-        throw new Error(`Cannot read remote manifest from ${_this.manifest.manifestUrl}`);
+        throw new Error(e);
       }
     })();
   }

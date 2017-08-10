@@ -23,6 +23,7 @@ function getFilename( uri ){
 function request( uri ){
   const driver = url.parse( uri ).protocol === "https:" ? https : http;
   return new Promise(( resolve, reject ) => {
+    console.log(driver)
    return driver.get( uri, ( res ) => {
       const statusCode = res.statusCode;
       let error = false;
@@ -38,7 +39,7 @@ function request( uri ){
       }
       return resolve( res );
     }).on( "error", ( e ) => {
-      reject( new Error( `Cannot read (${uri}).\n${e.message}` ) );
+      reject( new Error( `Cannot read (${uri}).\n${e, e.message}` ) );
     });
    });
 }

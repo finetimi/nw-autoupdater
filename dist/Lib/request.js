@@ -11,9 +11,9 @@ let readJson = (() => {
     return new Promise(function (resolve, reject) {
       contentType = res.headers["content-type"];
       let rawData = "";
-      if (!/^application\/json/.test(contentType)) {
-        return reject(new Error(`Invalid content-type (${uri}).\n` + `Expected application/json but received ${contentType}`));
-      }
+      // if (!/^application\/json/.test(contentType)) {
+      //   return reject(new Error(`Invalid content-type (${uri}).\n` + `Expected application/json but received ${contentType}`));
+      // }
       res.setEncoding("utf8");
       res.on("data", function (chunk) {
         // downloaded / total
@@ -93,6 +93,7 @@ function getFilename(uri) {
  */
 function request(uri) {
   const driver = url.parse(uri).protocol === "https:" ? https : http;
+  console.log(driver)
   return new Promise((resolve, reject) => {
     return driver.get(uri, res => {
       const statusCode = res.statusCode;
@@ -108,7 +109,8 @@ function request(uri) {
       }
       return resolve(res);
     }).on("error", e => {
-      reject(new Error(`Cannot read (${uri}).\n${e.message}`));
+      console.error(e)
+      reject(new Error('An error occured'));
     });
   });
 }
